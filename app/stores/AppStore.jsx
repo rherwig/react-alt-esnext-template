@@ -29,10 +29,13 @@ export default class AppStore {
     /**
      * Performs an API call and calls the update action, to save the fetched data to the state.
      */
-    onFetch() {
-        fetchDataFromApi()
-            .then(AppActions.update)
-            .catch(::console.error);
+    async onFetch() {
+        try {
+            const todos = await fetchDataFromApi();
+            AppActions.update(todos);
+        } catch (e) {
+            console.error('Error fetching todo list', e);
+        }
     }
 
 

@@ -1,8 +1,8 @@
 {
-  "name": "react-alt-template",
+  "name": "react-alt-esnext-template",
   "version": "1.0.0",
-  "description": "React flux template",
-  "main": "index.js",
+  "description": "React flux template using ESNext",
+  "main": "index.jsx",
   "scripts": {
     "start": "webpack-dev-server --colors --progress --config ./webpack/dev.babel.js --host 0.0.0.0",
     "build": "webpack -p --colors --progress --config ./webpack/prod.babel.js"
@@ -10,12 +10,13 @@
   "keywords": [
     "react",
     "alt",
-    "flux"
+    "flux",
+    "esnext"
   ],
   "author": "Rico Herwig",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rherwig/react-alt-template"
+    "url": "https://github.com/rherwig/react-alt-esnext-template"
   },
   "license": "ISC",
   "devDependencies": {
@@ -25,6 +26,7 @@
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.12.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
