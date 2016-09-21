@@ -5,7 +5,8 @@
   "main": "index.jsx",
   "scripts": {
     "start": "webpack-dev-server --colors --progress --config ./webpack/dev.babel.js --host 0.0.0.0",
-    "build": "webpack -p --colors --progress --config ./webpack/prod.babel.js"
+    "build": "webpack -p --colors --progress --config ./webpack/prod.babel.js",
+    "test": "echo 1"
   },
   "keywords": [
     "react",
