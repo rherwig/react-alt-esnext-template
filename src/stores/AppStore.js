@@ -38,6 +38,4 @@ export default class AppStore {
         }
     }
 
-
-
 }

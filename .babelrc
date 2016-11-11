@@ -8,5 +8,13 @@
         "stage-0",
         "es2015",
         "react"
-    ]
+    ],
+    "env": {
+        "production": {
+            "plugins": ["transform-react-remove-prop-types"]
+        },
+        "development": {
+            "plugins": ["react-hot-loader/babel"]
+        }
+    }
 }

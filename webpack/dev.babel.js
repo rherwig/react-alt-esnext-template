@@ -1,38 +1,51 @@
-import webpack from 'webpack';
+import {HotModuleReplacementPlugin, NoErrorsPlugin} from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
-
-const ROOT_PATH = path.resolve('./');
 
 export default {
     entry: [
         'webpack/hot/dev-server',
         'webpack-dev-server/client?http://0.0.0.0:8080',
-        path.resolve(ROOT_PATH, 'app/index')
+        path.join(__dirname, '..', 'src', 'index')
     ],
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
     output: {
-        path: path.resolve(ROOT_PATH, 'build'),
+        path: path.join(__dirname, '..', 'build'),
         filename: 'app.bundle.js'
     },
-    devtool: 'cheap-eval-source-map',
+    devtool: '#inline-source-map',
+    devServer: {
+        historyApiFallback: true,
+        host: '0.0.0.0',
+        port: 8080,
+        stats: {
+            colors: true
+        }
+    },
+    postcss: () => [autoprefixer],
     module: {
         loaders: [
             {
                 test: /\.(js|jsx)$/,
-                loaders: ['react-hot', 'babel'],
+                loader: 'babel',
                 exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!sass',
+                loader: 'style!css!postcss!sass',
                 exclude: /node_modules/
             }
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new HotModuleReplacementPlugin(),
+        new NoErrorsPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '..', 'src', 'index.dev.html'),
+            filename: 'index.html'
+        })
     ]
 };

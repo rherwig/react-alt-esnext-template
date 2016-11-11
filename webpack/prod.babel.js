@@ -1,20 +1,23 @@
-import webpack from 'webpack';
+import {optimize, DefinePlugin} from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 import path from 'path';
-
-var ROOT_PATH = path.resolve('./');
 
 export default {
     entry: [
-        path.resolve(ROOT_PATH, 'app/index')
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://0.0.0.0:8080',
+        path.join(__dirname, '..', 'src', 'index')
     ],
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
     output: {
-        path: path.resolve(ROOT_PATH, 'build'),
+        path: path.join(__dirname, '..', 'build'),
         filename: 'app.bundle.js'
     },
-    devtool: 'hidden-source-map',
+    devtool: '#source-map',
+    postcss: () => [autoprefixer],
     module: {
         loaders: [
             {
@@ -24,17 +27,21 @@ export default {
             },
             {
                 test: /\.scss$/,
-                loader: 'style!css!sass',
+                loader: 'style!css!postcss!sass',
                 exclude: /node_modules/
             }
         ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
+        new optimize.UglifyJsPlugin(),
+        new DefinePlugin({
             'process.env': {
                 'NODE_ENV': 'production'
             }
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '..', 'src', 'index.prod.html'),
+            filename: 'index.html'
         })
     ]
 };
